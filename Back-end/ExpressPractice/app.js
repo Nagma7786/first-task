@@ -1,15 +1,17 @@
 const express = require('express');
 const app = express();
+require('dotenv').config(); // Load .env config
 
+// Middleware to parse JSON and URL-encoded bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-console.log('✅ Middleware loaded');
-
+// ✅ User-related Routes
 const userRoutes = require('./routes/user.routes');
-console.log('✅ userRoutes imported');
-
 app.use('/api/users', userRoutes);
-console.log('✅ userRoutes mounted at /api/users');
+
+// ✅ OTP Routes for sending email OTP
+const otpRoutes = require('./routes/otp.routes');
+app.use('/api/otp', otpRoutes);
 
 module.exports = app;
